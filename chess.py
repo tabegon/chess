@@ -52,7 +52,7 @@ class Game():
         self.grille = tk.Canvas(self.fenetre, height=self.HAUTEUR, width=self.LARGEUR, background='white')
         self.grille.pack()
 
-    def place_pieces(self, disposition: [str]):
+    def place_pieces(self, disposition: [str]): # type: ignore
         """
         Permet d'initialiser le plateau de jeu à une certaine position (type : position initiale)
         données : disposition est une liste de str

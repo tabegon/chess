@@ -3,11 +3,13 @@ def identification(i, j):
     
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     if i_origine == i_clic :
-        return piece_in_move_vertical(board, j_origine, i_origine, j_clic, i_clic)
-    if j_origine == j_clic:
-        return piece_in_move_horizontal(board, j_origine, i_origine, j_clic, i_clic)
-    if abs(i_origine - i_clic) == abs(j_origine - j_clic):
         return True
+    elif j_origine == j_clic:
+        return True
+    elif abs(i_origine - i_clic) == abs(j_origine - j_clic):
+        return True
+    else:
+        return False
 
 def piece_in_move_vertical(board, j_origine, i_origine, j_clic, i_clic): # board, ydep, xdep, yar, ydep     
     print('Déplacement vertical')

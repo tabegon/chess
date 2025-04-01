@@ -22,7 +22,11 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
         mvmt_possible = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
     if mvmt_possible and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
         return True
-        
+    else:
+        if mvmt_possible == False:
+            print('mvmt')
+        elif echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
+            print('echec')
 
 def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
     piece = found_piece_color(board, i_origine, j_origine)
