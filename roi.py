@@ -1,8 +1,8 @@
-import pion as P
-import fou as B
-import cavalier as N
-import tour as R
-import dame as Q
+import pion
+import fou
+import cavalier
+import tour
+import dame
 
 def identification(i, j):
     print('La pièce est un roi')
@@ -15,6 +15,7 @@ def found_piece_color(board, i_origine, j_origine):
     return piece
 
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+    mvmt_possible = False
     i_variation = i_origine - i_clic
     j_variation = j_origine - j_clic
     if abs(i_variation) <= 1 and abs(j_variation) <= 1:
@@ -52,13 +53,58 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                 nb_colonne += 1
                 if case == i:
                     if piece == "b":
-                        if i.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                            print('False')
-                            return False
+
+
+                        if i == 'R':
+                            if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                        
+                        if i == 'N':
+                            if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                            
+                        if i == 'B':
+                            if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                        
+                        if i == 'Q':
+                            if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                        
+                        if i == 'K':
+                            if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+
                     elif piece == "w":
-                        z = i.upper()
-                        if z.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                            print('False')
-                            return False
+                        
+                        if i == 'r':
+                            if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                        
+                        if i == 'n':
+                            if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                            
+                        if i == 'b':
+                            if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                        
+                        if i == 'q':
+                            if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
+                        
+                        if i == 'k':
+                            if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('False')
+                                return False
     print('True')
     return True
