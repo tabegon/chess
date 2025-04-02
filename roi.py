@@ -81,7 +81,6 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
                         
                         if i == 'K':
-<<<<<<< HEAD
                             if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
                                 print('le roi menace')
                                 return False
@@ -89,10 +88,6 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                         if i == 'P':
                             if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
                                 print('le pion menace')
-=======
-                            if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print(nb_ligne, nb_colonne,':', i_clic, j_clic)
->>>>>>> ebfdfe476ac19017ac6ad4c8881955764912f448
                                 return False
 
                     elif piece == "w":
@@ -118,13 +113,8 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
                         
                         if i == 'k':
-<<<<<<< HEAD
                             if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
                                 print('le roi menace')
-=======
-                            if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print(nb_ligne, nb_colonne,':', i_clic, j_clic)
->>>>>>> ebfdfe476ac19017ac6ad4c8881955764912f448
                                 return False
 
                         if i == 'p':
