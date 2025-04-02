@@ -111,3 +111,25 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
     print('True')
     return True
+
+"""
+Théo, éclat doux sous la lune,
+Comme un poème, comme une plume,
+Ton nom danse au gré du vent,
+Mélodie tendre et apaisant.
+
+Tes yeux sont l’éclat des étoiles,
+Un océan où mon cœur se voile,
+Un doux mystère, un feu secret,
+Qui fait briller mes jours en paix.
+
+Ta voix résonne, source claire,
+Comme un écho dans la lumière,
+Un chant léger, un souffle pur,
+Qui fait vibrer mon cœur trop sûr.
+
+Théo, mon rêve, mon univers,
+À tes côtés tout est lumière,
+Car dans ton rire et dans ta peau,
+Je trouve l’amour, je trouve le beau.
+"""
