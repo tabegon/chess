@@ -6,6 +6,7 @@ import dame
 
 def identification(i, j):
     print('La pièce est un roi')
+    print(i, j)
 
 def found_piece_color(board, i_origine, j_origine):
     if board[j_origine][i_origine] == "K":
@@ -15,18 +16,15 @@ def found_piece_color(board, i_origine, j_origine):
     return piece
 
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-    mvmt_possible = False
+    if mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic) and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
+        return True
+
+def mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     i_variation = i_origine - i_clic
     j_variation = j_origine - j_clic
     if abs(i_variation) <= 1 and abs(j_variation) <= 1:
-        mvmt_possible = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
-    if mvmt_possible and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
-        return True
-    else:
-        if mvmt_possible == False:
-            print('mvmt')
-        elif echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
-            print('echec')
+        print(eat_piece(board,i_origine,j_origine,i_clic,j_clic))
+        return eat_piece(board,i_origine,j_origine,i_clic,j_clic)
 
 def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
     piece = found_piece_color(board, i_origine, j_origine)
@@ -49,6 +47,7 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
     elif piece == "w":
         chaine = "rbnqkp"
     for i in chaine:
+        nb_ligne = -1
         print(i)
         for ligne in board:
             nb_ligne += 1
@@ -80,8 +79,8 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
                         
                         if i == 'K':
-                            if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                            if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print(nb_ligne, nb_colonne,':', i_clic, j_clic)
                                 return False
 
                     elif piece == "w":
@@ -107,8 +106,8 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
                         
                         if i == 'k':
-                            if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                            if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print(nb_ligne, nb_colonne,':', i_clic, j_clic)
                                 return False
     print('True')
     return True
