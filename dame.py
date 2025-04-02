@@ -16,7 +16,7 @@ def piece_in_move_vertical(board, j_origine, i_origine, j_clic, i_clic): # board
     variation = (j_origine - j_clic)                        # variation = ydep - yar (plus petit ou plus grand que 0)
     if variation < 0:                                       # si la variation est plus petite que 0 
         for i in range(abs(variation)-1):                   # pour le nombre de abs(variation) - 1 pour pas vérifier la dérnière case 
-            if board[j_origine+(i)][i_origine] != " ":    # si sur le board au coordonnées [ydep]
+            if board[j_origine+(i)][i_origine] != " ":      # si sur le board au coordonnées [ydep]
                 print(board[j_origine+(i)][i_origine])
                 print('Il y a une pièce !')
                 return False
@@ -47,3 +47,4 @@ def piece_in_move_horizontal(board, j_origine, i_origine, j_clic, i_clic):
                 print('Il y a une pièce !')
                 return False
         return True
+

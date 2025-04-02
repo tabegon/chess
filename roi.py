@@ -5,7 +5,9 @@ import tour
 import dame
 
 def identification(i, j):
+    print() 
     print('La pièce est un roi')
+    print(i, j)
 
 def found_piece_color(board, i_origine, j_origine):
     if board[j_origine][i_origine] == "K":
@@ -20,7 +22,7 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     j_variation = j_origine - j_clic
     if abs(i_variation) <= 1 and abs(j_variation) <= 1:
         mvmt_possible = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
-    if mvmt_possible and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
+    if mvmt_possible == True and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) == True:
         return True
     else:
         if mvmt_possible == False:
@@ -50,6 +52,7 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
         chaine = "rbnqkp"
     for i in chaine:
         print(i)
+        nb_ligne = -1
         for ligne in board:
             nb_ligne += 1
             nb_colonne = -1
@@ -57,7 +60,6 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                 nb_colonne += 1
                 if case == i:
                     if piece == "b":
-
 
                         if i == 'R':
                             if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
@@ -76,7 +78,8 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                         
                         if i == 'Q':
                             if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('la reine menace')
+                                print('la reine menace a partir de', nb_ligne , nb_colonne, 'sur : ', i_clic,j_clic)
+                                print(i_clic, j_clic)
                                 return False
                         
                         if i == 'K':
@@ -120,5 +123,5 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                             if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
                                 print('le pion menace')
                                 return False
-    print('True')
+    
     return True
