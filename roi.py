@@ -24,8 +24,14 @@ def mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     i_variation = i_origine - i_clic
     j_variation = j_origine - j_clic
     if abs(i_variation) <= 1 and abs(j_variation) <= 1:
-        print(eat_piece(board,i_origine,j_origine,i_clic,j_clic))
-        return eat_piece(board,i_origine,j_origine,i_clic,j_clic)
+        mvmt_possible = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
+    if mvmt_possible == True and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) == True:
+        return True
+    else:
+        if mvmt_possible == False:
+            print('mvmt')
+        elif echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
+            print('echec')
 
 def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
     piece = found_piece_color(board, i_origine, j_origine)
@@ -81,7 +87,6 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
                         
                         if i == 'K':
-<<<<<<< HEAD
                             if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
                                 print('le roi menace')
                                 return False
@@ -89,10 +94,6 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                         if i == 'P':
                             if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
                                 print('le pion menace')
-=======
-                            if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print(nb_ligne, nb_colonne,':', i_clic, j_clic)
->>>>>>> ebfdfe476ac19017ac6ad4c8881955764912f448
                                 return False
 
                     elif piece == "w":
@@ -118,13 +119,8 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
                         
                         if i == 'k':
-<<<<<<< HEAD
                             if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
                                 print('le roi menace')
-=======
-                            if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print(nb_ligne, nb_colonne,':', i_clic, j_clic)
->>>>>>> ebfdfe476ac19017ac6ad4c8881955764912f448
                                 return False
 
                         if i == 'p':
@@ -133,25 +129,3 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                                 return False
     
     return True
-
-"""
-Théo, éclat doux sous la lune,
-Comme un poème, comme une plume,
-Ton nom danse au gré du vent,
-Mélodie tendre et apaisant.
-
-Tes yeux sont l’éclat des étoiles,
-Un océan où mon cœur se voile,
-Un doux mystère, un feu secret,
-Qui fait briller mes jours en paix.
-
-Ta voix résonne, source claire,
-Comme un écho dans la lumière,
-Un chant léger, un souffle pur,
-Qui fait vibrer mon cœur trop sûr.
-
-Théo, mon rêve, mon univers,
-À tes côtés tout est lumière,
-Car dans ton rire et dans ta peau,
-Je trouve l’amour, je trouve le beau.
-"""
