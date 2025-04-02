@@ -61,54 +61,64 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
 
                         if i == 'R':
                             if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('la tour menace')
                                 return False
                         
                         if i == 'N':
                             if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('le cavaliver menace')
                                 return False
                             
                         if i == 'B':
                             if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('la tour menace')
                                 return False
                         
                         if i == 'Q':
                             if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('la reine menace')
                                 return False
                         
                         if i == 'K':
                             if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('le roi menace')
+                                return False
+                        
+                        if i == 'P':
+                            if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('le pion menace')
                                 return False
 
                     elif piece == "w":
                         
                         if i == 'r':
                             if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('la tour menace')
                                 return False
                         
                         if i == 'n':
                             if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('le cavalier menace')
                                 return False
                             
                         if i == 'b':
                             if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('le fou menace')
                                 return False
                         
                         if i == 'q':
                             if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('la dame menace')
                                 return False
                         
                         if i == 'k':
                             if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('False')
+                                print('le roi menace')
+                                return False
+
+                        if i == 'p':
+                            if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                                print('le pion menace')
                                 return False
     print('True')
     return True

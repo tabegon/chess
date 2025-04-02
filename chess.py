@@ -34,8 +34,8 @@ class Game():
         # La liste de strings Pieces permet de placer les pièces en début de partie
         self.PIECES = ['RNBKQBNR',
                        'PPPPPPPP',
-                       '   p    ',
-                       '  p p   ',
+                       '        ',
+                       '        ',
                        '        ',
                        '        ',
                        'pppppppp',
