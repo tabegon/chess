@@ -17,23 +17,22 @@ def found_piece_color(board, i_origine, j_origine):
     return piece
 
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+    print(mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic))
+    print(echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic))
     if mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic) and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
         return True
+    return False
 
 def mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     i_variation = i_origine - i_clic
     j_variation = j_origine - j_clic
     if abs(i_variation) <= 1 and abs(j_variation) <= 1:
-        mvmt_possible = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
-    if mvmt_possible == True and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) == True:
-        return True
-    else:
-        if mvmt_possible == False:
-            print('mvmt')
-        elif echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
-            print('echec')
+        print('la menace')
+        return eat_piece(board,i_origine,j_origine,i_clic,j_clic)
+    return False
 
 def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
+    print('je mange')
     piece = found_piece_color(board, i_origine, j_origine)
     piece_clic = board[j_clic][i_clic]
     if board[j_clic][i_clic] != ' ': 
@@ -63,69 +62,68 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
             for case in ligne:
                 nb_colonne += 1
                 if case == i:
-                    if piece == "b":
 
-                        if i == 'R':
-                            if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('la tour menace')
-                                return False
+                    if i == 'R':
+                        if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('la tour menace')
+                            return False
+                    
+                    if i == 'N':
+                        if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('le cavaliver menace')
+                            return False
                         
-                        if i == 'N':
-                            if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('le cavaliver menace')
-                                return False
-                            
-                        if i == 'B':
-                            if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('la tour menace')
-                                return False
-                        
-                        if i == 'Q':
-                            if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('la reine menace a partir de', nb_ligne , nb_colonne, 'sur : ', i_clic,j_clic)
-                                print(i_clic, j_clic)
-                                return False
-                        
-                        if i == 'K':
-                            if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('le roi menace')
-                                return False
-                        
-                        if i == 'P':
-                            if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('le pion menace')
-                                return False
+                    if i == 'B':
+                        if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('la tour menace')
+                            return False
+                    
+                    if i == 'Q':
+                        if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('la reine menace a partir de', nb_ligne , nb_colonne, 'sur : ', i_clic,j_clic)
+                            print(i_clic, j_clic)
+                            return False
+                    
+                    if i == 'K':
+                        print(mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic))
+                        if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('le roi menace')
+                            return False
+                    
+                    if i == 'P':
+                        if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('le pion menace')
+                            return False
 
-                    elif piece == "w":
+                    
+                    if i == 'r':
+                        if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('la tour menace')
+                            return False
+                    
+                    if i == 'n':
+                        if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('le cavalier menace')
+                            return False
                         
-                        if i == 'r':
-                            if tour.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('la tour menace')
-                                return False
-                        
-                        if i == 'n':
-                            if cavalier.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('le cavalier menace')
-                                return False
-                            
-                        if i == 'b':
-                            if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('le fou menace')
-                                return False
-                        
-                        if i == 'q':
-                            if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('la dame menace')
-                                return False
-                        
-                        if i == 'k':
-                            if move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('le roi menace')
-                                return False
+                    if i == 'b':
+                        if fou.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('le fou menace')
+                            return False
+                    
+                    if i == 'q':
+                        if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('la dame menace')
+                            return False
+                    
+                    if i == 'k':
+                        if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('le roi menace')
+                            return False
 
-                        if i == 'p':
-                            if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
-                                print('le pion menace')
-                                return False
+                    if i == 'p':
+                        if pion.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                            print('le pion menace')
+                            return False
     
     return True
