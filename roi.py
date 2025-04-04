@@ -210,3 +210,11 @@ def echec(board,player_turn, i_origine,j_origine):
                             return False
     
     return True
+
+def echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+    echec_arrivee = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
+    echec = echec(board,player_turn, i_origine,j_origine)
+    if echec_arrivee and echec:
+        return True
+    else:
+        return False
