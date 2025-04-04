@@ -79,14 +79,14 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                             return False
                     
                     if i == 'Q':
-                        if dame.move_piece(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                        if dame.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
                             print('la reine menace a partir de', nb_ligne , nb_colonne, 'sur : ', i_clic,j_clic)
                             print(i_clic, j_clic)
                             return False
                     
                     if i == 'K':
                         print(mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic))
-                        if mouvement_possible(board, player_turn, nb_ligne, nb_colonne, i_clic, j_clic):
+                        if mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
                             print('le roi menace')
                             return False
                     
