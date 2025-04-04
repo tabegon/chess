@@ -17,9 +17,10 @@ def found_piece_color(board, i_origine, j_origine):
     return piece
 
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-    print(mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic))
-    print(echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic))
-    if mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic) and echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
+    condition1 = mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic)
+    condition2 = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
+    condition3 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
+    if condition1 and condition2 and condition3:
         return True
     return False
 
@@ -28,7 +29,7 @@ def mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     j_variation = j_origine - j_clic
     if abs(i_variation) <= 1 and abs(j_variation) <= 1:
         print('la menace')
-        return eat_piece(board,i_origine,j_origine,i_clic,j_clic)
+        return True
     return False
 
 def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
