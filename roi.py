@@ -127,3 +127,18 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                             return False
     
     return True
+
+
+def roque (board, i_origine, j_origine, i_clic, j_clic) : 
+    piece = found_piece_color(board, i_origine, j_origine)
+    if piece == "w":
+        if board[j_origine][i_origine] == "K" :
+            if board[j_clic][i_origine] == "R" : 
+                if bouger == None and tour.bouger == None : 
+                    return True 
+    if piece == "b":
+        if  board[j_origine][i_origine] == "k" :
+            if board[j_clic][i_origine] == "r" : 
+                if bouger == None and tour.bouger == None : 
+                    return True 
+    return False 
