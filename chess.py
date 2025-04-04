@@ -200,6 +200,12 @@ class Game():
                 else :
                     raise Exception("Un problème avec player_turn")
                 print("Player_turn : ",self.player_turn)
+            elif resultat == "echec":
+                print("échec")
+            elif resultat == "pat":
+                print("pat")
+            elif resultat == "echec_et_mat":
+                print("échec et mat")
             else:
                 print("Le déplacement est refusé")
 

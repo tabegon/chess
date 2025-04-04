@@ -22,6 +22,12 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     condition2 = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
     condition3 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
     if condition1 and condition2 and condition3:
+        if echec(board,player_turn, i_origine,j_origine):
+            return 'echec'
+        elif echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'echec_et_mat'
+        elif pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'pat'
         bouger = True
         return True
     return False
@@ -166,8 +172,6 @@ def echec(board,player_turn, i_origine,j_origine):
                     
                     if i == 'Q':
                         if dame.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('la reine menace a partir de', nb_ligne , nb_colonne, 'sur : ', i_clic,j_clic)
-                            print(i_clic, j_clic)
                             return False
                     
                     if i == 'K':
@@ -216,7 +220,7 @@ def echec(board,player_turn, i_origine,j_origine):
 def echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     echec_arrivee = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
     echec = echec(board,player_turn, i_origine,j_origine)
-    if echec_arrivee and echec:
+    if echec_arrivee and echec == False:
         return True
     else:
         return False
@@ -226,9 +230,9 @@ def pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     nb_colonne = -1
     piece = found_piece_color(board, i_origine,j_origine)
     if piece == "b":
-        chaine = "RBNQKP"
+        chaine = "RBNQP"
     elif piece == "w":
-        chaine = "rbnqkp"
+        chaine = "rbnqp"
     for i in chaine:
         nb_ligne = -1
         print(i)
