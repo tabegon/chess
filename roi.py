@@ -17,10 +17,12 @@ def found_piece_color(board, i_origine, j_origine):
     return piece
 
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+    global bouger
     condition1 = mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic)
     condition2 = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
     condition3 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
     if condition1 and condition2 and condition3:
+        bouger = True
         return True
     return False
 
