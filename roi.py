@@ -220,3 +220,79 @@ def echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
         return True
     else:
         return False
+
+def pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+    nb_ligne = -1
+    nb_colonne = -1
+    piece = found_piece_color(board, i_origine,j_origine)
+    if piece == "b":
+        chaine = "RBNQKP"
+    elif piece == "w":
+        chaine = "rbnqkp"
+    for i in chaine:
+        nb_ligne = -1
+        print(i)
+        nb_ligne = -1
+        for ligne in board:
+            nb_ligne += 1
+            nb_colonne = -1
+            for case in ligne:
+                nb_colonne += 1
+                if case == i:
+
+                    if i == 'R':
+                        if tour.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('la tour menace')
+                            return False
+                    
+                    if i == 'N':
+                        if cavalier.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('le cavaliver menace')
+                            return False
+                        
+                    if i == 'B':
+                        if fou.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('la tour menace')
+                            return False
+                    
+                    if i == 'Q':
+                        if dame.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('la reine menace a partir de', nb_ligne , nb_colonne, 'sur : ', i_clic,j_clic)
+                            print(i_clic, j_clic)
+                            return False
+                    
+                    if i == 'P':
+                        if pion.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('le pion menace')
+                            return False
+
+                    
+                    if i == 'r':
+                        if tour.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('la tour menace')
+                            return False
+                    
+                    if i == 'n':
+                        if cavalier.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('le cavalier menace')
+                            return False
+                        
+                    if i == 'b':
+                        if fou.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('le fou menace')
+                            return False
+                    
+                    if i == 'q':
+                        if dame.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('la dame menace')
+                            return False
+
+                    if i == 'p':
+                        if pion.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('le pion menace')
+                            return False
+    
+    for i in range(8):
+        for j in range(8):
+            if not echec(board, player_turn, i_origine, j_origine) and echecç_sur_arrive(board, player_turn, i_origine, j_origine, j, i):
+                return True
