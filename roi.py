@@ -22,14 +22,9 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     condition2 = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
     condition3 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
     if condition1 and condition2 and condition3:
-        if echec(board,player_turn, i_origine,j_origine):
-            return 'echec'
-        elif echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-            return 'echec_et_mat'
-        elif pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-            return 'pat'
-        bouger = True
-        return True
+        if turn(board, player_turn, i_origine, j_origine):
+            bouger = True
+            return True
     return False
 
 def mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
@@ -52,6 +47,11 @@ def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
             if board[j_clic][i_clic] == piece_clic.upper():
                 return False
     return True
+
+def turn(board, player_turn, i_origine, j_origine):
+    piece = found_piece_color(board, i_origine, j_origine)
+    if player_turn == piece:
+        return True
 
 def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
     nb_ligne = -1
