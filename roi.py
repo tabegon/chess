@@ -23,6 +23,12 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     condition3 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
     if condition1 and condition2 and condition3:
         if turn(board, player_turn, i_origine, j_origine):
+            if echec(board,player_turn, i_origine,j_origine):
+                return 'echec'
+            elif echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+                return 'echec_et_mat'
+            elif pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+                return 'pat'
             bouger = True
             return True
     return False
@@ -218,9 +224,7 @@ def echec(board,player_turn, i_origine,j_origine):
     return True
 
 def echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-    echec_arrivee = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
-    echec = echec(board,player_turn, i_origine,j_origine)
-    if echec_arrivee and echec == False:
+    if echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) and not echec(board,player_turn, i_origine,j_origine):
         return True
     else:
         return False
