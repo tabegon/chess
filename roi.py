@@ -27,7 +27,6 @@ def find_adverse_king(board, i_origine, j_origine):
             if board[j][i] == roi_adverse:
                 return i, j
 
-
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     global bouger
     condition1 = mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic)
@@ -155,88 +154,12 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
     return True
 
 def echec(board,player_turn, i_origine,j_origine):
-    nb_ligne = -1
-    nb_colonne = -1
-    piece = found_piece_color(board, i_origine,j_origine)
-    if piece == "b":
-        chaine = "RBNQKP"
-    elif piece == "w":
-        chaine = "rbnqkp"
-    for i in chaine:
-        nb_ligne = -1
-        print(i)
-        nb_ligne = -1
-        for ligne in board:
-            nb_ligne += 1
-            nb_colonne = -1
-            for case in ligne:
-                nb_colonne += 1
-                if case == i:
-
-                    if i == 'R':
-                        if tour.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('la tour menace')
-                            return False
-                    
-                    if i == 'N':
-                        if cavalier.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('le cavaliver menace')
-                            return False
-                        
-                    if i == 'B':
-                        if fou.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('la tour menace')
-                            return False
-                    
-                    if i == 'Q':
-                        if dame.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            return False
-                    
-                    if i == 'K':
-                        if mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('le roi menace')
-                            return False
-                    
-                    if i == 'P':
-                        if pion.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('le pion menace')
-                            return False
-
-                    
-                    if i == 'r':
-                        if tour.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('la tour menace')
-                            return False
-                    
-                    if i == 'n':
-                        if cavalier.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('le cavalier menace')
-                            return False
-                        
-                    if i == 'b':
-                        if fou.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('le fou menace')
-                            return False
-                    
-                    if i == 'q':
-                        if dame.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('la dame menace')
-                            return False
-                    
-                    if i == 'k':
-                        if mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('le roi menace')
-                            return False
-
-                    if i == 'p':
-                        if pion.move_piece(board, player_turn, nb_colonne, nb_ligne, i_origine, j_origine):
-                            print('le pion menace')
-                            return False
-    
-    return True
+    i_adverse, j_adverse = find_adverse_king(board, i_origine, j_origine)
+    piece_adverse = found_piece_color(board, i_adverse, j_adverse)
+    return not echec_sur_arrive(board, adversaire, i_adverse, j_adverse, i_adverse, j_adverse) # Renvoie True quand le roi adverse est en echec
 
 def echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-    if echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) and not echec(board,player_turn, i_origine,j_origine):
+    if not echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) and echec(board,player_turn, i_origine,j_origine):
         return True
     else:
         return False
