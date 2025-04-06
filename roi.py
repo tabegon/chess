@@ -16,6 +16,18 @@ def found_piece_color(board, i_origine, j_origine):
         piece = "b"
     return piece
 
+def find_adverse_king(board, i_origine, j_origine):
+    piece = found_piece_color(board, i_origine, j_origine)
+    if piece == "b":
+        roi_adverse = 'K'
+    elif piece == "w":
+        roi_adverse == 'k'
+    for j in range(8):
+        for i in range(8):
+            if board[j][i] == roi_adverse:
+                return i, j
+
+
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     global bouger
     condition1 = mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic)
@@ -302,5 +314,5 @@ def pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     
     for i in range(8):
         for j in range(8):
-            if not echec(board, player_turn, i_origine, j_origine) and echecç_sur_arrive(board, player_turn, i_origine, j_origine, j, i):
+            if not echec(board, player_turn, i_origine, j_origine) and echec_sur_arrive(board, player_turn, i_origine, j_origine, j, i):
                 return True
