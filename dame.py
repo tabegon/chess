@@ -1,12 +1,32 @@
+import roi
+
 def identification(i, j):
     print("La pièce est une dame")
     
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     if i_origine == i_clic :
+        if roi.echec(board,player_turn, i_origine,j_origine):
+                return 'echec'
+        elif roi.echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'echec_et_mat'
+        elif roi.pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'pat'
         return True
     elif j_origine == j_clic:
-        return True
+        if roi.echec(board,player_turn, i_origine,j_origine):
+                return 'echec'
+        elif roi.echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'echec_et_mat'
+        elif roi.pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'pat'
+        return True    
     elif abs(i_origine - i_clic) == abs(j_origine - j_clic):
+        if roi.echec(board,player_turn, i_origine,j_origine):
+                return 'echec'
+        elif roi.echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'echec_et_mat'
+        elif roi.pat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+            return 'pat'
         return True
     else:
         return False
