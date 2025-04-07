@@ -156,7 +156,7 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
 def echec(board,player_turn, i_origine,j_origine):
     i_adverse, j_adverse = find_adverse_king(board, i_origine, j_origine)
     piece_adverse = found_piece_color(board, i_adverse, j_adverse)
-    return not echec_sur_arrive(board, adversaire, i_adverse, j_adverse, i_adverse, j_adverse) # Renvoie True quand le roi adverse est en echec
+    return not echec_sur_arrive(board, player_turn, i_origine, j_origine, i_origine, j_origine) # Renvoie True quand le roi adverse est en echec
 
 def echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     if not echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) and echec(board,player_turn, i_origine,j_origine):

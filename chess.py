@@ -202,10 +202,24 @@ class Game():
                 print("Player_turn : ",self.player_turn)
             elif resultat == "echec":
                 print("échec")
+                print("Le déplacement est autorisé")
+                #  Déplacement de la pièce à l'endroit du clic
+                self.board[j_clic][i_clic] = self.board[j_origine][i_origine]
+                #  Suppression de la pièce de son ancien emplacement
+                self.board[j_origine][i_origine] = ' '
+                #  Changement de joueur
+                if self.player_turn == 'w':
+                    self.player_turn = 'b' 
+                elif self.player_turn == 'b':
+                    self.player_turn = 'w'
+                else :
+                    raise Exception("Un problème avec player_turn")
             elif resultat == "pat":
                 print("pat")
+                partie.fenetre.quit()
             elif resultat == "echec_et_mat":
                 print("échec et mat")
+                partie.fenetre.quit()
             else:
                 print("Le déplacement est refusé")
 
