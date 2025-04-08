@@ -1,3 +1,12 @@
+"""
+Code créer par Antoine Borries, Guillaume, Charles, Albert et moi-même Théo
+Nous n'avons pas pu faire le roque et le pat car nous avons priorisé les spécifications
+Nous avons du changer du code dans chess.py pour pouvoir appeller la fonction echec et
+    echet et mat à chaque fin de tour
+Le code est un peu répétitif à certains endroits car nous n'avons pas trouver comment nous pourrions
+    faire des boucles à ces certains endroits
+"""
+
 import pion
 import fou
 import cavalier
@@ -57,7 +66,7 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
             return True                                        # on retourne True qui fait bouger la piece
     return False  # Si un des 3 trois conditions ne sont pas remplies ou que ce n'est pas le tour du joueur, on empeche le déplacement  
 
-def mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
+def mouvement_possible(i_origine,j_origine,i_clic,j_clic):
     """
     détermine si le roi a le droit de faire ce déplacement en fonction de la variation de ces coordonnées 
     @return : booléen 
@@ -86,7 +95,7 @@ def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
 
 def turn(board, player_turn, i_origine, j_origine):
     """
-    determine si c'ets le tour du joueur 
+    determine si c'est le tour du joueur 
     @return : booléen 
     """
     piece = found_piece_color(board, i_origine, j_origine)  
@@ -95,8 +104,9 @@ def turn(board, player_turn, i_origine, j_origine):
 
 def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
     """
-    détermine si la case sur laquelle le joueur a cliqué est menace par une pièce ou pas 
+    détermine si la case sur laquelle le joueur a cliqué est menacé par une pièce ou pas 
     @return : booléen renseignant sur la possibilité pour le roi d'aller sur cette case 
+                    (et non s'il est en echec à l'arrivée, ce qui est contre-intuitif)
     """
     nb_ligne = -1
     nb_colonne = -1
@@ -132,7 +142,7 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                             return False
                     
                     if i == 'K':
-                        if mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                        if mouvement_possible(nb_colonne, nb_ligne, i_clic, j_clic):
                             return False
                     
                     if i == 'P':
@@ -157,7 +167,7 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                             return False
                     
                     if i == 'k':
-                        if mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                        if mouvement_possible(nb_colonne, nb_ligne, i_clic, j_clic):
                             return False
 
                     if i == 'p':
@@ -167,9 +177,23 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
     return True     # si aucune des pieces ne menace la case alors on return True 
 
 def echec(board,player_turn, i_origine,j_origine):
+    """
+    Détermine si la case du roi est menacé par une autre pièce adverse
+    @param board : plateau de jeu en tant que matrice 
+    @param player_turn : booléen blanc ou noir 
+    @param i_origine, j_origine : coordonnée y, x de la pièce sélectionnée compris entre 0 et 7 inclu
+    @return : booléen True/False qui détermine si le roi est en échec 
+    """
     return not echec_sur_arrive(board, player_turn, i_origine, j_origine, i_origine, j_origine) # Renvoie True quand le roi adverse est en echec
 
 def echec_et_mat(board,player_turn,i_origine,j_origine):
+    """
+    Détermine si le roi est en échec et mat, c'est à dire qu'il est en échec et ne peut plus bouger
+    @param board : plateau de jeu en tant que matrice 
+    @param player_turn : booléen blanc ou noir 
+    @param i_origine, j_origine : coordonnée y, x de la pièce sélectionnée compris entre 0 et 7 inclu
+    @return : booléen True/False qui détermine si le roi est en échec et mat
+    """
     if echec(board,player_turn, i_origine,j_origine):
         liste_i = [abs(i_origine+1), abs(i_origine-1), i_origine]
         liste_j = [abs(j_origine+1), abs(j_origine-1), j_origine]
