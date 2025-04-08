@@ -188,10 +188,18 @@ class Game():
                 
             if resultat:  # Rappel : resultat vaut True après les test du module Pion
                 print("Le déplacement est autorisé")
+                piece = roi.found_piece_color(self.board, i_origine, j_origine)
                 #  Déplacement de la pièce à l'endroit du clic
                 self.board[j_clic][i_clic] = self.board[j_origine][i_origine]
                 #  Suppression de la pièce de son ancien emplacement
                 self.board[j_origine][i_origine] = ' '
+
+                i_king, j_king = roi.find_adverse_king(self.board, piece)
+                if roi.echec(self.board, self.player_turn, i_king, j_king):
+                    print('echec')
+                    if roi.echec_et_mat(self.board, self.player_turn, i_king, j_king):
+                        print('ECHEC ET MAT')
+
                 #  Changement de joueur
                 if self.player_turn == 'w':
                     self.player_turn = 'b' 
@@ -200,26 +208,6 @@ class Game():
                 else :
                     raise Exception("Un problème avec player_turn")
                 print("Player_turn : ",self.player_turn)
-            elif resultat == "echec":
-                print("échec")
-                print("Le déplacement est autorisé")
-                #  Déplacement de la pièce à l'endroit du clic
-                self.board[j_clic][i_clic] = self.board[j_origine][i_origine]
-                #  Suppression de la pièce de son ancien emplacement
-                self.board[j_origine][i_origine] = ' '
-                #  Changement de joueur
-                if self.player_turn == 'w':
-                    self.player_turn = 'b' 
-                elif self.player_turn == 'b':
-                    self.player_turn = 'w'
-                else :
-                    raise Exception("Un problème avec player_turn")
-            elif resultat == "pat":
-                print("pat")
-                partie.fenetre.quit()
-            elif resultat == "echec_et_mat":
-                print("échec et mat")
-                partie.fenetre.quit()
             else:
                 print("Le déplacement est refusé")
 

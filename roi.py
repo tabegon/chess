@@ -16,8 +16,7 @@ def found_piece_color(board, i_origine, j_origine):
         piece = "b"
     return piece
 
-def find_adverse_king(board, i_origine, j_origine):
-    piece = found_piece_color(board, i_origine, j_origine)
+def find_adverse_king(board, piece):
     if piece == "b":
         roi_adverse = 'K'
     elif piece == "w":
@@ -34,10 +33,6 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     condition3 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
     if condition1 and condition2 and condition3:
         if turn(board, player_turn, i_origine, j_origine):
-            if echec(board,player_turn, i_origine,j_origine):
-                return 'echec'
-            elif echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-                return 'echec_et_mat'
             bouger = True
             return True
     return False
@@ -76,7 +71,6 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
         chaine = "rbnqkp"
     for i in chaine:
         nb_ligne = -1
-        print(i)
         for ligne in board:
             nb_ligne += 1
             nb_colonne = -1
@@ -98,6 +92,7 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                     
                     if i == 'Q':
                         if dame.mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                            print('dame menace')
                             return False
                     
                     if i == 'K':
@@ -136,11 +131,31 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
     return True
 
 def echec(board,player_turn, i_origine,j_origine):
-    i_adverse, j_adverse = find_adverse_king(board, i_origine, j_origine)
     return not echec_sur_arrive(board, player_turn, i_origine, j_origine, i_origine, j_origine) # Renvoie True quand le roi adverse est en echec
 
-def echec_et_mat(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-    if not echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic) and echec(board,player_turn, i_origine,j_origine):
-        return True
+def echec_et_mat(board,player_turn,i_origine,j_origine):
+    if echec(board,player_turn, i_origine,j_origine):
+        liste_i = [i_origine+1, i_origine-1, i_origine]
+        liste_j = [j_origine+1, j_origine-1, j_origine]
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[2]):
+            return False
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[2]):
+            return False
+        
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[0]):
+            return False
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[1]):
+            return False
+        
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[0]):
+            return False
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[1]):
+            return False
+        
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[0]):
+            return False
+        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[1]):
+            return False
+
     else:
         return False

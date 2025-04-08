@@ -5,17 +5,14 @@ def identification(i, j):
     
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     if mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
-        i_king, j_king = roi.find_adverse_king(board, i_origine, j_origine)
-        if roi.echec(board, player_turn, i_king, j_king):
-            print('echec')
-            if roi.echec_et_mat(board, player_turn, i_king, j_king, i_clic, j_clic):
-                print('ECHEC ET MAT')
         return True
     else:
         return False
 
 def mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     if i_origine == i_clic or j_origine == j_clic or abs(i_origine - i_clic) == abs(j_origine - j_clic):
+        if i_origine == i_clic and j_origine == j_clic:
+            return False
         return True
 
 def piece_in_move_vertical(board, j_origine, i_origine, j_clic, i_clic): # board, ydep, xdep, yar, ydep     
