@@ -137,24 +137,24 @@ def echec_et_mat(board,player_turn,i_origine,j_origine):
     if echec(board,player_turn, i_origine,j_origine):
         liste_i = [abs(i_origine+1), abs(i_origine-1), i_origine]
         liste_j = [abs(j_origine+1), abs(j_origine-1), j_origine]
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[2]):
+        if eat_piece(board,i_origine,j_origine,liste_i[0], liste_j[2]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[2]):
             return False
-        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[2]):
-            return False
-        
-        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[0]):
-            return False
-        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[1]):
+        elif eat_piece(board,i_origine,j_origine,liste_i[1], liste_j[2]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[2]):
             return False
         
-        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[0]):
+        elif eat_piece(board,i_origine,j_origine,liste_i[2], liste_j[0]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[0]):
             return False
-        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[1]):
+        elif eat_piece(board,i_origine,j_origine,liste_i[2], liste_j[1]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[1]):
             return False
         
-        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[0]):
+        elif eat_piece(board,i_origine,j_origine,liste_i[0], liste_j[0]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[0]):
             return False
-        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[1]):
+        elif eat_piece(board,i_origine,j_origine,liste_i[1], liste_j[1]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[1]):
+            return False
+        
+        elif eat_piece(board,i_origine,j_origine,liste_i[1], liste_j[0]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[0]):
+            return False
+        elif eat_piece(board,i_origine,j_origine,liste_i[0], liste_j[1]) and echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[1]):
             return False
         else:
             return True
