@@ -135,27 +135,29 @@ def echec(board,player_turn, i_origine,j_origine):
 
 def echec_et_mat(board,player_turn,i_origine,j_origine):
     if echec(board,player_turn, i_origine,j_origine):
-        liste_i = [i_origine+1, i_origine-1, i_origine]
-        liste_j = [j_origine+1, j_origine-1, j_origine]
+        liste_i = [abs(i_origine+1), abs(i_origine-1), i_origine]
+        liste_j = [abs(j_origine+1), abs(j_origine-1), j_origine]
         if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[2]):
             return False
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[2]):
+        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[2]):
             return False
         
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[0]):
+        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[0]):
             return False
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[1]):
-            return False
-        
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[0]):
-            return False
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[1]):
+        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[2], liste_j[1]):
             return False
         
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[0]):
+        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[0]):
             return False
-        if echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[1]):
+        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[1]):
             return False
+        
+        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[1], liste_j[0]):
+            return False
+        elif echec_sur_arrive(board, player_turn, i_origine, j_origine, liste_i[0], liste_j[1]):
+            return False
+        else:
+            return True
 
     else:
         return False

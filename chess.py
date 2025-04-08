@@ -198,7 +198,11 @@ class Game():
                 if roi.echec(self.board, self.player_turn, i_king, j_king):
                     print('echec')
                     if roi.echec_et_mat(self.board, self.player_turn, i_king, j_king):
-                        print('ECHEC ET MAT')
+                        if self.player_turn == 'w':
+                            print('ECHEC ET MAT, Victoire des blancs')
+                        else:
+                            print('ECHEC ET MAT, Victoire des noirs')
+                        partie.fenetre.quit()
 
                 #  Changement de joueur
                 if self.player_turn == 'w':
