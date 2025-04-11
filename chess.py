@@ -39,7 +39,7 @@ class Game():
                        '        ',
                        '        ',
                        'pppppppp',
-                       'rnbkqbnr']
+                       'r  k   r']
         # La variable board est une liste de listes qui permet de savoir où sont disposées les pièces sur l'échiquier
         self.board = self.place_pieces(self.PIECES)
 

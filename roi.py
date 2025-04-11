@@ -14,6 +14,9 @@ import tour
 import dame
 # on importe les move_piece de chaque piece pour l'échec, le pat et l'echec et mate
 # En esperant que les autres groupes aient fait du bon boulot
+bouger = False
+
+
 def identification(i, j):
     print() 
     print('La pièce est un roi')
@@ -46,6 +49,25 @@ def find_adverse_king(board, piece):
         for i in range(8):                      # On parcourt toute les cases du plateau 
             if board[j][i] == roi_adverse:      # Si les coordonnées j, i sont égale au 'k' ou 'K' alors
                 return i, j                     # On retourne les coordonnées 
+            
+def find_rook(board, piece, i_clic, j_clic):
+    """
+    trouve les coordonées du roi adverse
+    @param board : plateau de jeu en tant que matrice
+    @param piece : variable contenant 'w' ou 'b'
+    @return i, j : coordonnés du roi adverse y, x
+    """
+    if piece == "b":                            # Si la piece est noir alors le roi adverse est le 'K' majuscule  
+        rook = 'r'
+    elif piece == "w":                          # Si la piece est blanche alors le roi adverse est le 'k' minuscule 
+        rook = 'R'
+
+    for j in range(8):
+        for i in range(8):                      # On parcourt toute les cases du plateau 
+            print(board[j][i])
+            if board[j][i] == rook and (j_clic and i_clic == i and j) :      # Si les coordonnées j, i sont égale au 'k' ou 'K' alors
+                return i, j                     # On retourne les coordonnées 
+    return None, None
 
 def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     """
@@ -56,8 +78,14 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
     @param i_clic, j_clic : coordonnée y, x de la où on veut faire aller la piece compris entre 0 et 7 inclu
     @return : booléen True/False qui conditionne la validation du coup 
     """
-    global bouger                                                                           # utile pour le roque
-    condition1 = mouvement_possible(board,player_turn,i_origine,j_origine,i_clic,j_clic)    
+    global bouger                                                                          # utile pour le roque
+    piece = found_piece_color(board, i_origine, j_origine)
+    i_rook, j_rook = find_rook(board, piece, i_clic, j_clic)
+    print(piece, i_rook, j_rook, '\n', i_clic, j_clic)
+    if i_clic == i_rook and j_clic == j_rook:
+        return roque(board, player_turn, i_origine,j_origine,i_clic,j_clic)
+
+    condition1 = mouvement_possible(i_origine,j_origine,i_clic,j_clic)    
     condition2 = echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic)
     condition3 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
     if condition1 and condition2 and condition3:               # Si les 3 conditions pour bouger sont True 
@@ -77,7 +105,7 @@ def mouvement_possible(i_origine,j_origine,i_clic,j_clic):
         return True
     return False
 
-def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
+def eat_piece(board, i_origine,j_origine,i_clic,j_clic):
     """
     détermine si on a le droit de manger la pièce suivant sa couleur 
     @return : booléen 
@@ -92,6 +120,46 @@ def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
             if board[j_clic][i_clic] == piece_clic.upper(): # Si la piece sur laquelle on clique est un piece blanche alors False 
                 return False
     return True    # Sinon on return False 
+
+def roque(board, player_turn, i_origine,j_origine,i_clic,j_clic):
+    if bouger == False and tour.bouger_rook == False:
+        piece = found_piece_color(board, i_origine, j_origine)
+        i_rook, j_rook = find_rook(board, piece, i_clic, j_clic)
+        i = i_origine
+        while i != i_rook:
+            if eat_piece(board,i_origine,j_origine,i_origine, i) and not echec_sur_arrive(board, player_turn, i_origine, i, i_clic, j_clic):
+                return False
+            if i_origine > i_rook:
+                i -= 1
+            else:
+                i += 1
+        if i_origine > i_rook:
+            #  Déplacement de la pièce à l'endroit du clic
+            board[j_clic][i_clic+1] = board[j_origine][i_origine]
+            #  Suppression de la pièce de son ancien emplacement
+            board[j_origine][i_origine] = ' '
+
+
+            #  Déplacement de la tour à l'endroit du clic
+            board[j_origine][i_origine-1] = board[j_clic][i_clic]
+            #  Suppression de la tour de son ancien emplacement
+            board[j_rook][i_rook] = ' '
+
+        else:
+            #  Déplacement de la pièce à l'endroit du clic
+            board[j_clic][i_clic-2] = board[j_origine][i_origine]
+            #  Suppression de la pièce de son ancien emplacement
+            board[j_origine][i_origine] = ' '
+
+
+            #  Déplacement de la tour à l'endroit du clic
+            board[j_origine][i_origine+1] = board[j_clic][i_clic]
+            #  Suppression de la tour de son ancien emplacement
+            board[j_rook][i_rook] = ' '
+        return False
+        
+
+
 
 def turn(board, player_turn, i_origine, j_origine):
     """
