@@ -15,11 +15,9 @@ def found_piece_color(board, i_origine, j_origine):
     return piece
 
 def move_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
-    global bouger 
     condition1 = mouvement_possible(board, player_turn, i_origine, j_origine, i_clic, j_clic)
     condition2 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
-    if condition1 and condition2 :
-        bouger = True
+    if condition1:
         return True
     return False
 
@@ -31,9 +29,18 @@ def mouvement_possible(board, player_turn, i_origine, j_origine, i_clic, j_clic)
     return False
 
 def mouv_diagonale(board, player_turn, i_origine, j_origine, i_clic, j_clic) : 
-    if 1==2 : 
-        return True 
-    return False   
+    piece = found_piece_color(board, i_origine, j_origine)
+    if piece == 'w' : 
+        if abs(i_clic - i_origine) == 1 and j_clic == j_origine + 1:
+            #On vérifie qu'une pièce ennemie est bien présente sur la case d'arrivée
+            if board[j_clic][i_clic] != ' ' and eat_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
+                return True
+    if piece == 'b' : 
+        if abs(i_clic - i_origine) == 1 and j_clic == j_origine - 1:
+            #On vérifie qu'une pièce ennemie est bien présente sur la case d'arrivée
+            if board[j_clic][i_clic] != ' ' and eat_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
+                return True
+    return False    #Par contres si aucune condition n'est remplie, le déplacement est invalide  
 
 def en_avant(board, player_turn, i_origine, j_origine, i_clic, j_clic) : 
     piece = found_piece_color(board, i_origine, j_origine)
