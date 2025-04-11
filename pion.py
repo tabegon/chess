@@ -2,6 +2,7 @@ def identification(i, j):
     print('La pièce est un pion')
     print(i, j)
 
+bouger = False
 def found_piece_color(board, i_origine, j_origine):
     """
     trouve la couleur de la piece cliquée
@@ -15,47 +16,37 @@ def found_piece_color(board, i_origine, j_origine):
     return piece
 
 def move_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
+    global bouger
     condition1 = mouvement_possible(board, player_turn, i_origine, j_origine, i_clic, j_clic)
     condition2 = eat_piece(board,i_origine,j_origine,i_clic,j_clic)
-    if condition1:
+    if condition1 or condition2:
+        bouger = True
         return True
     return False
 
 def mouvement_possible(board, player_turn, i_origine, j_origine, i_clic, j_clic):
-    condition3 = mouv_diagonale(board, player_turn, i_origine, j_origine, i_clic, j_clic)
-    condition4 = en_avant(board, player_turn, i_origine, j_origine, i_clic, j_clic)
-    if condition3 or condition4 :
-        return True 
-    return False
-
-def mouv_diagonale(board, player_turn, i_origine, j_origine, i_clic, j_clic) : 
     piece = found_piece_color(board, i_origine, j_origine)
-    if piece == 'w' : 
-        if abs(i_clic - i_origine) == 1 and j_clic == j_origine + 1:
-            #On vérifie qu'une pièce ennemie est bien présente sur la case d'arrivée
-            if board[j_clic][i_clic] != ' ' and eat_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
-                return True
-    if piece == 'b' : 
-        if abs(i_clic - i_origine) == 1 and j_clic == j_origine - 1:
-            #On vérifie qu'une pièce ennemie est bien présente sur la case d'arrivée
-            if board[j_clic][i_clic] != ' ' and eat_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
-                return True
-    return False    #Par contres si aucune condition n'est remplie, le déplacement est invalide  
+    if piece == "b":
+        if i_origine == i_clic:
+            if board[j_origine-1][i_origine] == " ":
+                if i_clic == i_origine and j_clic == j_origine-2:
+                    return not bouger
+                elif i_clic == i_origine and j_clic == j_origine-1:
+                    return True
+                else:
+                    return False
+    else:
+        if i_origine == i_clic:
+            if board[j_origine+1][i_origine] == " ":
+                if i_clic == i_origine and j_clic == j_origine+2:
+                    return not bouger
+                elif i_clic == i_origine and j_clic == j_origine+1:
+                    return True
+                else:
+                    return False
+            else:
+                return False
 
-def en_avant(board, player_turn, i_origine, j_origine, i_clic, j_clic) : 
-    piece = found_piece_color(board, i_origine, j_origine)
-    if piece == 'w' :
-        if i_origine == i_clic and j_clic == j_origine + 1 :
-            return True
-        if i_origine == 1 and j_clic == j_origine + 2 : 
-            return True 
-
-    if piece == 'b' : 
-        if i_origine == i_clic and j_clic == j_origine - 1 :
-            return True
-        if i_origine == 6 and j_clic == j_origine - 2 : 
-            return True              
-    return False
 
 
 def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
@@ -67,9 +58,9 @@ def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
     piece_clic = board[j_clic][i_clic]
     if board[j_clic][i_clic] != ' ': 
         if piece == "b":
-            if board[j_clic][i_clic] == piece_clic.lower(): # Si la piece sur laquelle on clique est un piece noire alors False 
-                return False
+            if piece_clic == board[i_origine-1][j_origine-1].upper() or board[i_origine+1][j_origine-1].upper(): # Si la piece sur laquelle on clique est un piece noire alors False 
+                return True
         elif piece == "w":
-            if board[j_clic][i_clic] == piece_clic.upper(): # Si la piece sur laquelle on clique est un piece blanche alors False 
-                return False
-    return True    # Sinon on return False    
+            if piece_clic == board[i_origine-1][j_origine+1].upper() or board[i_origine+1][j_origine+1].upper(): # Si la piece sur laquelle on clique est un piece noire alors False 
+                return True
+    return False    # Sinon on return False    

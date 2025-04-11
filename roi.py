@@ -94,7 +94,7 @@ def move_piece(board,player_turn,i_origine,j_origine,i_clic,j_clic):
             return True                                        # on retourne True qui fait bouger la piece
     return False  # Si un des 3 trois conditions ne sont pas remplies ou que ce n'est pas le tour du joueur, on empeche le déplacement  
 
-def mouvement_possible(board, player_turn, i_origine,j_origine, i_clic,j_clic):
+def mouvement_possible(i_origine,j_origine, i_clic,j_clic):
     """
     détermine si le roi a le droit de faire ce déplacement en fonction de la variation de ces coordonnées 
     @return : booléen 
@@ -210,11 +210,11 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                             return False
                     
                     if i == 'K':
-                        if mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                        if mouvement_possible(nb_colonne, nb_ligne, i_clic, j_clic):
                             return False
                     
                     if i == 'P':
-                        if pion.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                        if pion.eat_piece(board,i_origine,j_origine,i_clic,j_clic):
                             return False
 
                     
@@ -235,11 +235,11 @@ def echec_sur_arrive(board,player_turn, i_origine,j_origine, i_clic,j_clic):
                             return False
                     
                     if i == 'k':
-                        if mouvement_possible(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                        if mouvement_possible(nb_colonne, nb_ligne, i_clic, j_clic):
                             return False
 
                     if i == 'p':
-                        if pion.move_piece(board, player_turn, nb_colonne, nb_ligne, i_clic, j_clic):
+                        if pion.eat_piece(board,i_origine,j_origine,i_clic,j_clic):
                             return False
     
     return True     # si aucune des pieces ne menace la case alors on return True 

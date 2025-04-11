@@ -202,7 +202,7 @@ class Game():
                             print('ECHEC ET MAT, Victoire des blancs')
                         else:
                             print('ECHEC ET MAT, Victoire des noirs')
-                        #partie.fenetre.quit()
+                        partie.fenetre.quit()
 
                 #  Changement de joueur
                 if self.player_turn == 'w':
