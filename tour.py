@@ -1,3 +1,5 @@
+bouger = False
+
 def identification(i, j):
     print('La pièce est une tour')
 

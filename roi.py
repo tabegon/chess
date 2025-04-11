@@ -122,7 +122,7 @@ def eat_piece(board, i_origine,j_origine,i_clic,j_clic):
     return True    # Sinon on return False 
 
 def roque(board, player_turn, i_origine,j_origine,i_clic,j_clic):
-    if bouger == False and tour.bouger_rook == False:
+    if bouger == False and tour.bouger == False:
         piece = found_piece_color(board, i_origine, j_origine)
         i_rook, j_rook = find_rook(board, piece, i_clic, j_clic)
         i = i_origine
