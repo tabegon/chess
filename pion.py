@@ -1,5 +1,6 @@
 def identification(i, j):
     print('La pièce est un pion')
+    print(i, j)
 
 def found_piece_color(board, i_origine, j_origine):
     """
@@ -23,9 +24,32 @@ def move_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
     return False
 
 def mouvement_possible(board, player_turn, i_origine, j_origine, i_clic, j_clic):
-    if :
-        return True
-    return False 
+    condition3 = mouv_diagonale(board, player_turn, i_origine, j_origine, i_clic, j_clic)
+    condition4 = en_avant(board, player_turn, i_origine, j_origine, i_clic, j_clic)
+    if condition3 or condition4 :
+        return True 
+    return False
+
+def mouv_diagonale(board, player_turn, i_origine, j_origine, i_clic, j_clic) : 
+    if 1==2 : 
+        return True 
+    return False   
+
+def en_avant(board, player_turn, i_origine, j_origine, i_clic, j_clic) : 
+    piece = found_piece_color(board, i_origine, j_origine)
+    if piece == 'w' :
+        if i_origine == i_clic and j_clic == j_origine + 1 :
+            return True
+        if i_origine == 1 and j_clic == j_origine + 2 : 
+            return True 
+
+    if piece == 'b' : 
+        if i_origine == i_clic and j_clic == j_origine - 1 :
+            return True
+        if i_origine == 6 and j_clic == j_origine - 2 : 
+            return True              
+    return False
+
 
 def eat_piece(board,i_origine,j_origine,i_clic,j_clic):
     """

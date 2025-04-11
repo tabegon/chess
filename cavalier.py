@@ -23,7 +23,7 @@ def move_piece(board, player_turn, i_origine, j_origine, i_clic, j_clic):
     return False
 
 def mouvement_possible(board, player_turn, i_origine, j_origine, i_clic, j_clic):
-    if :
+    if i_origine == i_clic: 
         return True
     return False 
 
